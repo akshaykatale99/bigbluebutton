@@ -291,12 +291,12 @@ class UserOptions extends PureComponent {
       //     onClick={toggleMuteAllUsers}
       //   />) : null
       // ),
-      //!isMeetingMuted && 
-      //isMeetingMuted ? intl.formatMessage(intlMessages.unmuteAllExceptPresenterLabel) : 
+      //! isMeetingMuted &&
+      // isMeetingMuted ? intl.formatMessage(intlMessages.unmuteAllExceptPresenterLabel) :
       (isMeteorConnected ? (
         <DropdownListItem
           key={this.muteId}
-          icon={'mute'}
+          icon="mute"
           label={intl.formatMessage(intlMessages.muteAllExceptPresenterLabel)}
           description={intl.formatMessage(intlMessages.muteAllExceptPresenterDesc)}
           onClick={toggleMuteAllUsersExceptPresenter}

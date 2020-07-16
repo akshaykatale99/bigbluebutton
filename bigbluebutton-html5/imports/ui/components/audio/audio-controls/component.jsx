@@ -77,11 +77,11 @@ class AudioControls extends PureComponent {
     }
 
     return (
-      <div style={{textAlign: "center", width: "14%"}}>
+      <div style={{ textAlign: 'center', width: '14%' }}>
         {showMute && isVoiceUser
           ? (
-            <div style={{textAlign: "center", width: "100%", position: "relative"}}>
-              {/*<Button
+            <div style={{ textAlign: 'center', width: '100%', position: 'relative' }}>
+              {/* <Button
                 className={cx(styles.button, !talking || styles.glow, !muted || styles.btn)}
                 onClick={handleToggleMuteMicrophone}
                 disabled={disable}
@@ -96,17 +96,17 @@ class AudioControls extends PureComponent {
                 size="lg"
                 circle
                 accessKey={shortcuts.togglemute}
-              />*/}
+              /> */}
               <ButtonAcb
                 label={muted ? 'Unmute' : 'Mute'}
                 icon={muted ? 'mute' : 'unmute'}
                 isActive={!muted}
                 disabled={disable}
                 onClick={handleToggleMuteMicrophone}
-             />
+              />
             </div>
           ) : null}
-        {/*<Button
+        {/* <Button
           className={cx(styles.button, inAudio || styles.btn)}
           onClick={inAudio ? handleLeaveAudio : handleJoinAudio}
           disabled={disable}
@@ -121,7 +121,7 @@ class AudioControls extends PureComponent {
           size="lg"
           circle
           accessKey={inAudio ? shortcuts.leaveaudio : shortcuts.joinaudio}
-        />*/}
+        /> */}
       </div>);
   }
 }

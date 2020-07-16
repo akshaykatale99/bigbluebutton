@@ -20,7 +20,7 @@ const UserToggleContainer = ({ children, ...props }) => (
 
 
 export default withTracker(() => {
-	const checkUnreadMessages = () => {
+  const checkUnreadMessages = () => {
     const activeChats = userListService.getActiveChats();
     const hasUnreadMessages = activeChats
       .filter(chat => chat.userId !== Session.get('idChatOpen'))
@@ -31,9 +31,9 @@ export default withTracker(() => {
   	const checkUnReadCount = () => {
   		const activeChatsc = userListService.getActiveChats();
 	    const hasUnreadcount = activeChatsc
-	      .filter(chat => chat.userId !== Session.get('idChatOpen'))
+	      .filter(chat => chat.userId !== Session.get('idChatOpen'));
 	    let count = 0;
-	    hasUnreadcount.forEach(ch => {
+	    hasUnreadcount.forEach((ch) => {
 	    	count += ch.unreadCounter;
 	    });
 	    return count;
@@ -47,6 +47,6 @@ export default withTracker(() => {
   return {
     isExpanded,
     hasUnreadMessages,
-    hasUnreadcount
+    hasUnreadcount,
   };
 })(UserToggleContainer);

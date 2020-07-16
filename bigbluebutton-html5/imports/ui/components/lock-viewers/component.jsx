@@ -200,7 +200,7 @@ class LockViewersComponent extends Component {
                 </div>
               </div>
             </div>
-            {/*<div className={styles.row}>
+            {/* <div className={styles.row}>
               <div className={styles.col} aria-hidden="true">
                 <div className={styles.formElement}>
                   <div className={styles.label}>
@@ -223,7 +223,7 @@ class LockViewersComponent extends Component {
                   />
                 </div>
               </div>
-            </div>*/}
+            </div> */}
             <div className={styles.row}>
               <div className={styles.col} aria-hidden="true">
                 <div className={styles.formElement}>

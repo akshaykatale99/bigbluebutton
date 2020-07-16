@@ -28,8 +28,8 @@ const shouldUnswapLayout = () => MediaService.shouldShowScreenshare() || MediaSe
 const PresentationOptionsContainer = ({ intl, toggleSwapLayout, isThereCurrentPresentation }) => {
   if (shouldUnswapLayout()) toggleSwapLayout();
   return (
-    <div style={{textAlign: "center", width: "14%"}}>
-    {/*<Button
+    <div style={{ textAlign: 'center', width: '14%' }}>
+      {/* <Button
       className={styles.button}
       icon="presentation"
       label={intl.formatMessage(intlMessages.restorePresentationLabel)}
@@ -41,11 +41,11 @@ const PresentationOptionsContainer = ({ intl, toggleSwapLayout, isThereCurrentPr
       onClick={toggleSwapLayout}
       id="restore-presentation"
       disabled={!isThereCurrentPresentation}
-    />*/}
-    <ButtonAcb 
+    /> */}
+      <ButtonAcb
         label="Whiteboard"
         icon="presentation"
-        isActive={true}
+        isActive
         isDisabled={!isThereCurrentPresentation}
         onClick={toggleSwapLayout}
       />

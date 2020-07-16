@@ -2,15 +2,15 @@ import React, { PureComponent } from 'react';
 import { styles } from './styles';
 
 class ButtonLabel extends PureComponent {
-	render() {
+  render() {
 	  	const {
-		label
+      label,
 	    } = this.props;
 
-	   return(
-	   	<h4>{label}</h4>
-	   	)
-	}
+	   return (
+  <h4>{label}</h4>
+	   	);
+  }
 }
 
 export default ButtonLabel;

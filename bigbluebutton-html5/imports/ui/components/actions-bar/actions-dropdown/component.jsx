@@ -305,8 +305,8 @@ class ActionsDropdown extends PureComponent {
     return (
       <Dropdown ref={(ref) => { this._dropdown = ref; }}>
         <DropdownTrigger tabIndex={0} accessKey={OPEN_ACTIONS_AK}>
-        <div style={{textAlign: "center", width: "100%"}}>
-          {/*<Button
+          <div style={{ textAlign: 'center', width: '100%' }}>
+            {/* <Button
             hideLabel
             aria-label={intl.formatMessage(intlMessages.actionsLabel)}
             className={styles.button}
@@ -316,13 +316,13 @@ class ActionsDropdown extends PureComponent {
             size="lg"
             circle
             onClick={() => null}
-          />*/}
-          <ButtonAcb 
-            label="Upload"
-            icon="plus"
-            isActive={true}
-            onClick={() => null}
-          />
+          /> */}
+            <ButtonAcb
+              label="Upload"
+              icon="plus"
+              isActive
+              onClick={() => null}
+            />
           </div>
         </DropdownTrigger>
         <DropdownContent placement="top left">

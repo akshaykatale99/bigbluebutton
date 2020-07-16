@@ -34,7 +34,7 @@ const defaultProps = {
 };
 
 class UserToggle extends PureComponent {
-	static handleToggleUserList() {
+  static handleToggleUserList() {
     Session.set(
       'openPanel',
       Session.get('openPanel') !== ''
@@ -66,7 +66,7 @@ class UserToggle extends PureComponent {
       hasUnreadMessages,
       isExpanded,
       intl,
-      hasUnreadcount
+      hasUnreadcount,
     } = this.props;
 
     const toggleBtnClasses = {};
@@ -77,9 +77,9 @@ class UserToggle extends PureComponent {
     let ariaLabel = intl.formatMessage(intlMessages.toggleUserListAria);
     ariaLabel += hasUnreadMessages ? (` ${intl.formatMessage(intlMessages.newMessages)}`) : '';
 
-    return(
-      <div className={cx(styles.textCenter)} style={{width: "14%"}}>
-    		{/*<Button
+    return (
+      <div className={cx(styles.textCenter)} style={{ width: '14%' }}>
+        {/* <Button
               data-test="userListToggleButton"
               onClick={UserToggle.handleToggleUserList}
               ghost={!isExpanded}
@@ -94,18 +94,18 @@ class UserToggle extends PureComponent {
               aria-expanded={isExpanded}
               data-after={hasUnreadMessages ? hasUnreadcount : ""}
             />
-        <ButtonLabel label="Chat" />*/}
+        <ButtonLabel label="Chat" /> */}
 
-        <ButtonAcb 
+        <ButtonAcb
           label="Chat"
           icon="chat"
           isActive={isExpanded}
           onClick={UserToggle.handleToggleUserList}
-          dataAfter={hasUnreadMessages ? hasUnreadcount : ""}
+          dataAfter={hasUnreadMessages ? hasUnreadcount : ''}
           isNotice={hasUnreadMessages}
         />
-      </div>    
-	);
+      </div>
+    );
   }
 }
 

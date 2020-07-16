@@ -7,6 +7,7 @@ import { Session } from 'meteor/session';
 import {
   defineMessages, injectIntl, intlShape, FormattedMessage,
 } from 'react-intl';
+import Lottie from 'react-lottie';
 import { styles } from './styles';
 import PermissionsOverlay from '../permissions-overlay/component';
 import AudioSettings from '../audio-settings/component';
@@ -14,8 +15,7 @@ import EchoTest from '../echo-test/component';
 import Help from '../help/component';
 import AudioDial from '../audio-dial/component';
 import AudioAutoplayPrompt from '../autoplay/component';
-import Lottie from 'react-lottie';
-import * as animationData from './connecting.json'
+import * as animationData from './connecting.json';
 
 const propTypes = {
   intl: intlShape.isRequired,
@@ -264,7 +264,7 @@ class AudioModal extends Component {
     });
 
     return joinEchoTest().then(() => {
-      //console.log(inputDeviceId, outputDeviceId);
+      // console.log(inputDeviceId, outputDeviceId);
       this.setState({
         content: 'echoTest',
         disableActions: false,
@@ -428,11 +428,11 @@ class AudioModal extends Component {
 
     const defaultOptions = {
       loop: true,
-      autoplay: true, 
-      animationData: animationData,
+      autoplay: true,
+      animationData,
       rendererSettings: {
-        preserveAspectRatio: 'xMidYMid slice'
-      }
+        preserveAspectRatio: 'xMidYMid slice',
+      },
     };
 
     if (isIOSChrome) {
@@ -450,17 +450,19 @@ class AudioModal extends Component {
     if (this.skipAudioOptions()) {
       return (
         <div className={styles.connecting} role="alert">
-          {/*<span>
+          {/* <span>
             {!isEchoTest
               ? intl.formatMessage(intlMessages.connecting)
               : intl.formatMessage(intlMessages.connectingEchoTest)
             }
           </span>
-          <span className={styles.connectingAnimation} />*/}
-          <Lottie options={defaultOptions}
-              height={200}
-              width={200} />
-          <h6>Use headphones for better audio experience</h6> 
+          <span className={styles.connectingAnimation} /> */}
+          <Lottie
+            options={defaultOptions}
+            height={200}
+            width={200}
+          />
+          <h6>Use headphones for better audio experience</h6>
         </div>
       );
     }

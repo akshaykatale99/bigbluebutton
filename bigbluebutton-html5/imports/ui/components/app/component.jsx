@@ -148,7 +148,6 @@ class App extends Component {
     }
 
     logger.info({ logCode: 'app_component_componentdidmount' }, 'Client loaded successfully');
-
   }
 
   componentDidUpdate(prevProps) {

@@ -78,7 +78,7 @@ class NavBar extends PureComponent {
     clearInterval(this.interval);
   }
 
-  renderToggleBtn(){
+  renderToggleBtn() {
     const {
       hasUnreadMessages,
       isExpanded,
@@ -91,29 +91,29 @@ class NavBar extends PureComponent {
 
     const toggleBtnClasses = {};
     toggleBtnClasses[styles.btn] = true;
-    //toggleBtnClasses[styles.btnWithNotificationDot] = hasUnreadMessages;
-    
+    // toggleBtnClasses[styles.btnWithNotificationDot] = hasUnreadMessages;
+
     let ariaLabel = intl.formatMessage(intlMessages.toggleUserListAria);
     ariaLabel += hasUnreadMessages ? (` ${intl.formatMessage(intlMessages.newMessages)}`) : '';
 
-    if(isMobileBrowser){
-      return(
+    if (isMobileBrowser) {
+      return (
         <Button
-            data-test="userListToggleButton"
-            onClick={NavBar.handleToggleUserList}
-            ghost
-            circle
-            size="lg"
-            hideLabel
-            data-test={hasUnreadMessages ? 'hasUnreadMessages' : null}
-            label={intl.formatMessage(intlMessages.toggleUserListLabel)}
-            aria-label={ariaLabel}
-            icon={isExpanded ? "close" : "user"}
-            className={cx(toggleBtnClasses)}
-            aria-expanded={isExpanded}
-            accessKey={TOGGLE_USERLIST_AK}
+          data-test="userListToggleButton"
+          onClick={NavBar.handleToggleUserList}
+          ghost
+          circle
+          size="lg"
+          hideLabel
+          data-test={hasUnreadMessages ? 'hasUnreadMessages' : null}
+          label={intl.formatMessage(intlMessages.toggleUserListLabel)}
+          aria-label={ariaLabel}
+          icon={isExpanded ? 'close' : 'user'}
+          className={cx(toggleBtnClasses)}
+          aria-expanded={isExpanded}
+          accessKey={TOGGLE_USERLIST_AK}
         />
-      )
+      );
     }
   }
 
@@ -139,9 +139,9 @@ class NavBar extends PureComponent {
     return (
       <div className={styles.navbar}>
         <div className={styles.top}>
-          <div className={styles.left} style={{width: isMobileBrowser ? 'auto' : '50px'}}>
+          <div className={styles.left} style={{ width: isMobileBrowser ? 'auto' : '50px' }}>
             {this.renderToggleBtn()}
-            {/*{!isExpanded ? null
+            {/* {!isExpanded ? null
               : <Icon iconName="left_arrow" className={styles.arrowLeft} />
             }
             <Button
@@ -159,7 +159,7 @@ class NavBar extends PureComponent {
             />
             {isExpanded ? null
               : <Icon iconName="right_arrow" className={styles.arrowRight} />
-            }*/}
+            } */}
           </div>
           <div className={styles.center}>
             <h1 className={styles.presentationTitle}>{presentationTitle}</h1>
@@ -170,30 +170,34 @@ class NavBar extends PureComponent {
             />
           </div>
           <div className={styles.right}>
-            {/*<SettingsDropdownContainer amIModerator={amIModerator} />*/}
+            {/* <SettingsDropdownContainer amIModerator={amIModerator} /> */}
             {
-              amIModerator ? 
-              (<Button
-                onClick={() => mountModal(<EndMeetingConfirmationContainer />)}
-                ghost={true}
-                circle
-                hideLabel
-                label="Leave Session"
-                icon="logout"
-                size="lg"
-                className={styles.btn}
-                color="danger"
-              />) : (<Button
-                onClick={() => window.location.href = 'https://apiv2.learntez.com/vct-bridge/exit'}
-                ghost={true}
-                circle
-                hideLabel
-                label="Leave Session"
-                icon="logout"
-                size="lg"
-                className={styles.btn}
-                color="danger"
-              />)
+              amIModerator
+                ? (
+                  <Button
+                    onClick={() => mountModal(<EndMeetingConfirmationContainer />)}
+                    ghost
+                    circle
+                    hideLabel
+                    label="Leave Session"
+                    icon="logout"
+                    size="lg"
+                    className={styles.btn}
+                    color="danger"
+                  />
+                ) : (
+                  <Button
+                    onClick={() => window.location.href = 'https://apiv2.learntez.com/vct-bridge/exit'}
+                    ghost
+                    circle
+                    hideLabel
+                    label="Leave Session"
+                    icon="logout"
+                    size="lg"
+                    className={styles.btn}
+                    color="danger"
+                  />
+                )
             }
           </div>
         </div>

@@ -173,8 +173,8 @@ const DesktopShare = ({
 
   return shouldAllowScreensharing
     ? (
-      <div style={{textAlign: "center", width: "14%"}}>
-      {/*<Button
+      <div style={{ textAlign: 'center', width: '14%' }}>
+        {/* <Button
         className={cx(styles.button, isVideoBroadcasting || styles.btn)}
         disabled={(!isMeteorConnected && !isVideoBroadcasting) || !screenshareDataSavingSetting}
         icon={isVideoBroadcasting ? 'desktop' : 'desktop_off'}
@@ -204,28 +204,28 @@ const DesktopShare = ({
         }
         }
         id={isVideoBroadcasting ? 'unshare-screen-button' : 'share-screen-button'}
-      />*/}
-      <ButtonAcb 
+      /> */}
+        <ButtonAcb
           label="Screenshare"
           icon={isVideoBroadcasting ? 'desktop' : 'desktop_off'}
           isActive={isVideoBroadcasting}
           onClick={isVideoBroadcasting ? handleUnshareScreen : () => {
-          if (IS_SAFARI && !ScreenshareBridgeService.hasDisplayMedia) {
-            return mountModal(<Modal
-              overlayClassName={styles.overlay}
-              className={styles.modal}
-              onRequestClose={() => mountModal(null)}
-              hideBorder
-              contentLabel={intl.formatMessage(intlMessages.screenShareUnavailable)}
-            >
-              <h3 className={styles.title}>
-                {intl.formatMessage(intlMessages.screenShareUnavailable)}
-              </h3>
-              <p>{intl.formatMessage(intlMessages.screenShareNotSupported)}</p>
-                              </Modal>);
+            if (IS_SAFARI && !ScreenshareBridgeService.hasDisplayMedia) {
+              return mountModal(<Modal
+                overlayClassName={styles.overlay}
+                className={styles.modal}
+                onRequestClose={() => mountModal(null)}
+                hideBorder
+                contentLabel={intl.formatMessage(intlMessages.screenShareUnavailable)}
+              >
+                <h3 className={styles.title}>
+                  {intl.formatMessage(intlMessages.screenShareUnavailable)}
+                </h3>
+                <p>{intl.formatMessage(intlMessages.screenShareNotSupported)}</p>
+              </Modal>);
+            }
+            handleShareScreen(onFail);
           }
-          handleShareScreen(onFail);
-        }
         }
         />
       </div>

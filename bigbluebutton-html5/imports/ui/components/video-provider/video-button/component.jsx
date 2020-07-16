@@ -65,8 +65,8 @@ const JoinVideoButton = ({
     ? intl.formatMessage(intlMessages.videoLocked) : sharingVideoLabel;
 
   return (
-    <div style={{textAlign: "center", width: "14%"}}>
-      {/*<Button
+    <div style={{ textAlign: 'center', width: '14%' }}>
+      {/* <Button
         label={disabledLabel}
         className={cx(styles.button, isSharingVideo || styles.btn)}
         onClick={isSharingVideo ? handleCloseVideo : verifyIOS}
@@ -78,14 +78,14 @@ const JoinVideoButton = ({
         size="lg"
         circle
         disabled={isDisabled}
-      />*/}
+      /> */}
       <ButtonAcb
-          label="Webcam"
-          icon={isSharingVideo ? 'video' : 'video_off'}
-          isActive={isSharingVideo}
-          disabled={isDisabled}
-          onClick={isSharingVideo ? handleCloseVideo : verifyIOS}
-       />
+        label="Webcam"
+        icon={isSharingVideo ? 'video' : 'video_off'}
+        isActive={isSharingVideo}
+        disabled={isDisabled}
+        onClick={isSharingVideo ? handleCloseVideo : verifyIOS}
+      />
     </div>
   );
 };

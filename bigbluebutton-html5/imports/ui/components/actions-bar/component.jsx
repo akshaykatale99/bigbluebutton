@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import cx from 'classnames';
+import browser from 'browser-detect';
 import { styles } from './styles.scss';
 import DesktopShare from './desktop-share/component';
 import ActionsDropdown from './actions-dropdown/component';
@@ -8,7 +9,6 @@ import AudioControlsContainer from '../audio/audio-controls/container';
 import JoinVideoOptionsContainer from '../video-provider/video-button/container';
 import CaptionsButtonContainer from '/imports/ui/components/actions-bar/captions/container';
 import PresentationOptionsContainer from './presentation-options/component';
-import browser from 'browser-detect';
 import UserToggleContainer from './user-toggle/container';
 
 const BROWSER_RESULTS = browser();
@@ -55,14 +55,17 @@ class ActionsBar extends PureComponent {
     actionBarClasses[styles.centerWithActions] = amIPresenter;
     actionBarClasses[styles.center] = true;
     actionBarClasses[styles.mobileLayoutSwapped] = isLayoutSwapped && amIPresenter;
-    
+
     return (
-      <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-        {/*<div className={styles.left}>
-          
-        </div>*/}
-        <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-evenly', width: isMobileBrowser ? '100%' : '40%'}}>
-        <ActionsDropdown {...{
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        {/* <div className={styles.left}>
+
+        </div> */}
+        <div style={{
+          display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-evenly', width: isMobileBrowser ? '100%' : '40%',
+        }}
+        >
+          <ActionsDropdown {...{
             amIPresenter,
             amIModerator,
             isPollingEnabled,
@@ -126,9 +129,9 @@ class ActionsBar extends PureComponent {
             : null
           }
         </div>
-        {/*<div className={styles.right}>
-          
-        </div>*/}
+        {/* <div className={styles.right}>
+
+        </div> */}
       </div>
     );
   }

@@ -249,5 +249,5 @@ export default {
   getPresentations,
   persistPresentationChanges,
   dispatchTogglePresentationDownloadable,
-  setPresentation
+  setPresentation,
 };
