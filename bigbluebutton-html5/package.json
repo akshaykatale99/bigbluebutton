@@ -64,6 +64,7 @@
     "react-draggable": "^3.3.0",
     "react-dropzone": "^7.0.1",
     "react-intl": "~2.7.2",
+    "react-lottie": "^1.2.3",
     "react-modal": "~3.6.1",
     "react-player": "^2.3.0",
     "react-render-in-browser": "^1.1.1",

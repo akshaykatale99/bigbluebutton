@@ -18,7 +18,7 @@ public:
     basename: "/html5client"
     askForFeedbackOnLogout: false
     allowUserLookup: false
-    enableNetworkInformation: false
+    enableNetworkInformation: true
     enableLimitOfViewersInWebcam: false
     enableTalkingIndicator: true
     mirrorOwnWebcam: false
@@ -82,10 +82,10 @@ public:
   externalVideoPlayer:
     enabled: true
   networkMonitoring:
-    enableNetworkMonitoring: false
+    enableNetworkMonitoring: true
     packetLostThreshold: 10
   kurento:
-    wsUrl: HOST
+    wsUrl: ws://192.168.27.128/bbb-webrtc-sfu
     chromeDefaultExtensionKey: akgoaoikmbmhcopjgakkcepdgdgkjfbc
     chromeDefaultExtensionLink: https://chrome.google.com/webstore/detail/bigbluebutton-screenshare/akgoaoikmbmhcopjgakkcepdgdgkjfbc
     chromeExtensionKey: KEY
@@ -139,8 +139,8 @@ public:
     enabled: true
     max_custom: 5
   captions:
-    enabled: true
-    enableDictation: false
+    enabled: false
+    enableDictation: true
     backgroundColor: "#000000"
     fontColor: "#FFFFFF"
     fontFamily: Calibri
@@ -150,7 +150,7 @@ public:
     time: 5000
   chat:
     enabled: true
-    startClosed: false
+    startClosed: true
     min_message_length: 1
     max_message_length: 5000
     grouping_messages_window: 10000

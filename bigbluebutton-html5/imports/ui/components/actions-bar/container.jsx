@@ -10,6 +10,8 @@ import ActionsBar from './component';
 import Service from './service';
 import VideoService from '../video-provider/service';
 import ExternalVideoService from '/imports/ui/components/external-video-player/service';
+import PresentationUploaderService from '/imports/ui/components/presentation/presentation-uploader/service';
+import PresentationPodService from '/imports/ui/components/presentation-pod/service';
 import CaptionsService from '/imports/ui/components/captions/service';
 import {
   shareScreen,
@@ -52,4 +54,7 @@ export default withTracker(() => ({
   isThereCurrentPresentation: Presentations.findOne({ meetingId: Auth.meetingID, current: true },
     { fields: {} }),
   allowExternalVideo: Meteor.settings.public.externalVideoPlayer.enabled,
+  presentations: PresentationUploaderService.getPresentations(),
+  setPresentation: PresentationUploaderService.setPresentation,
+  podIds: PresentationPodService.getPresentationPodIds(),
 }))(injectIntl(ActionsBarContainer));

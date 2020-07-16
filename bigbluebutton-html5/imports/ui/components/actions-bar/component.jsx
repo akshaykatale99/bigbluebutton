@@ -8,6 +8,15 @@ import AudioControlsContainer from '../audio/audio-controls/container';
 import JoinVideoOptionsContainer from '../video-provider/video-button/container';
 import CaptionsButtonContainer from '/imports/ui/components/actions-bar/captions/container';
 import PresentationOptionsContainer from './presentation-options/component';
+import browser from 'browser-detect';
+import UserToggleContainer from './user-toggle/container';
+
+const BROWSER_RESULTS = browser();
+const isMobileBrowser = (BROWSER_RESULTS ? BROWSER_RESULTS.mobile : false)
+  || (BROWSER_RESULTS && BROWSER_RESULTS.os
+    ? BROWSER_RESULTS.os.includes('Android') // mobile flag doesn't always work
+    : false);
+const IS_SAFARI = BROWSER_RESULTS.name === 'safari';
 
 class ActionsBar extends PureComponent {
   render() {
@@ -36,6 +45,9 @@ class ActionsBar extends PureComponent {
       isPollingEnabled,
       isThereCurrentPresentation,
       allowExternalVideo,
+      presentations,
+      setPresentation,
+      podIds,
     } = this.props;
 
     const actionBarClasses = {};
@@ -43,11 +55,14 @@ class ActionsBar extends PureComponent {
     actionBarClasses[styles.centerWithActions] = amIPresenter;
     actionBarClasses[styles.center] = true;
     actionBarClasses[styles.mobileLayoutSwapped] = isLayoutSwapped && amIPresenter;
-
+    
     return (
-      <div className={styles.actionsbar}>
-        <div className={styles.left}>
-          <ActionsDropdown {...{
+      <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+        {/*<div className={styles.left}>
+          
+        </div>*/}
+        <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-evenly', width: isMobileBrowser ? '100%' : '40%'}}>
+        <ActionsDropdown {...{
             amIPresenter,
             amIModerator,
             isPollingEnabled,
@@ -57,6 +72,9 @@ class ActionsBar extends PureComponent {
             isSharingVideo,
             stopExternalVideoShare,
             isMeteorConnected,
+            presentations,
+            setPresentation,
+            podIds,
           }}
           />
           {isPollingEnabled
@@ -77,8 +95,7 @@ class ActionsBar extends PureComponent {
             )
             : null
           }
-        </div>
-        <div className={cx(actionBarClasses)}>
+          <UserToggleContainer />
           <AudioControlsContainer />
           {enableVideo
             ? (
@@ -99,8 +116,6 @@ class ActionsBar extends PureComponent {
             screenshareDataSavingSetting,
           }}
           />
-        </div>
-        <div className={styles.right}>
           {isLayoutSwapped
             ? (
               <PresentationOptionsContainer
@@ -111,6 +126,9 @@ class ActionsBar extends PureComponent {
             : null
           }
         </div>
+        {/*<div className={styles.right}>
+          
+        </div>*/}
       </div>
     );
   }

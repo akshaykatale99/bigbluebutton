@@ -7,7 +7,8 @@
 :root {
   --navbar-height: 3.9375rem; // TODO: Change to NavBar real height
   --actionsbar-height: 75px; // TODO: Change to ActionsBar real height
-  --bars-padding: calc(var(--lg-padding-x) - .45rem); // -.45 so user-list and chat title is aligned with the presentation title
+  // --bars-padding: calc(var(--lg-padding-x) - .45rem); // -.45 so user-list and chat title is aligned with the presentation title
+  --bars-padding: 0px 0px;
   --userlist-handle-width: 5px; // 5px so user-list and chat resize handle render as the same size
   --poll-pane-min-width: 20em;
   --panel-margin-left: 0.1em;
@@ -223,4 +224,5 @@
   padding: var(--bars-padding);
   position: relative;
   order: 3;
+  background: linear-gradient(0deg, #131313, #252525e0);
 }

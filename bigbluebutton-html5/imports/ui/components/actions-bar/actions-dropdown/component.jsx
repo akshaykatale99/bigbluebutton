@@ -13,6 +13,10 @@ import { withModalMounter } from '/imports/ui/components/modal/service';
 import withShortcutHelper from '/imports/ui/components/shortcut-help/service';
 import { styles } from '../styles';
 import ExternalVideoModal from '/imports/ui/components/external-video-player/modal/container';
+import ButtonLabel from '/imports/ui/components/button-label/component';
+import ButtonAcb from '/imports/ui/components/acb-button/component';
+import cx from 'classnames';
+import DropdownListSeparator from '/imports/ui/components/dropdown/list/separator/component';
 
 const propTypes = {
   amIPresenter: PropTypes.bool.isRequired,
@@ -86,6 +90,7 @@ class ActionsDropdown extends PureComponent {
 
     this.handlePresentationClick = this.handlePresentationClick.bind(this);
     this.handleExternalVideoClick = this.handleExternalVideoClick.bind(this);
+    this.makePresentationItems = this.makePresentationItems.bind(this);
   }
 
   componentWillUpdate(nextProps) {
@@ -120,7 +125,86 @@ class ActionsDropdown extends PureComponent {
       formatMessage,
     } = intl;
 
+    // return _.compact([
+    //   (amIPresenter && isPollingEnabled
+    //     ? (
+    //       <DropdownListItem
+    //         icon="polling"
+    //         label={formatMessage(pollBtnLabel)}
+    //         description={formatMessage(pollBtnDesc)}
+    //         key={this.pollId}
+    //         onClick={() => {
+    //           if (Session.equals('pollInitiated', true)) {
+    //             Session.set('resetPollPanel', true);
+    //           }
+    //           Session.set('openPanel', 'poll');
+    //           Session.set('forcePollOpen', true);
+    //         }}
+    //       />
+    //     )
+    //     : null),
+    //   (!amIPresenter
+    //     ? (
+    //       <DropdownListItem
+    //         icon="presentation"
+    //         label={formatMessage(takePresenter)}
+    //         description={formatMessage(takePresenterDesc)}
+    //         key={this.takePresenterId}
+    //         onClick={() => handleTakePresenter()}
+    //       />
+    //     )
+    //     : null),
+    //   (amIPresenter
+    //     ? (
+    //       <DropdownListItem
+    //         data-test="uploadPresentation"
+    //         icon="presentation"
+    //         label={formatMessage(presentationLabel)}
+    //         description={formatMessage(presentationDesc)}
+    //         key={this.presentationItemId}
+    //         onClick={this.handlePresentationClick}
+    //       />
+    //     )
+    //     : null),
+    //   (amIPresenter && allowExternalVideo
+    //     ? (
+    //       <DropdownListItem
+    //         icon="video"
+    //         label={!isSharingVideo ? intl.formatMessage(intlMessages.startExternalVideoLabel)
+    //           : intl.formatMessage(intlMessages.stopExternalVideoLabel)}
+    //         description="External Video"
+    //         key="external-video"
+    //         onClick={isSharingVideo ? stopExternalVideoShare : this.handleExternalVideoClick}
+    //       />
+    //     )
+    //     : null),
+    // ]);
+
     return _.compact([
+      (amIPresenter
+        ? (
+          <DropdownListItem
+            data-test="uploadPresentation"
+            icon="presentation"
+            label={formatMessage(presentationLabel)}
+            description={formatMessage(presentationDesc)}
+            key={this.presentationItemId}
+            onClick={this.handlePresentationClick}
+          />
+        )
+        : null),
+      (amIPresenter && allowExternalVideo
+        ? (
+          <DropdownListItem
+            icon="video"
+            label={!isSharingVideo ? intl.formatMessage(intlMessages.startExternalVideoLabel)
+              : intl.formatMessage(intlMessages.stopExternalVideoLabel)}
+            description="External Video"
+            key="external-video"
+            onClick={isSharingVideo ? stopExternalVideoShare : this.handleExternalVideoClick}
+          />
+        )
+        : null),
       (amIPresenter && isPollingEnabled
         ? (
           <DropdownListItem
@@ -149,31 +233,43 @@ class ActionsDropdown extends PureComponent {
           />
         )
         : null),
-      (amIPresenter
-        ? (
-          <DropdownListItem
-            data-test="uploadPresentation"
-            icon="presentation"
-            label={formatMessage(presentationLabel)}
-            description={formatMessage(presentationDesc)}
-            key={this.presentationItemId}
-            onClick={this.handlePresentationClick}
-          />
-        )
-        : null),
-      (amIPresenter && allowExternalVideo
-        ? (
-          <DropdownListItem
-            icon="video"
-            label={!isSharingVideo ? intl.formatMessage(intlMessages.startExternalVideoLabel)
-              : intl.formatMessage(intlMessages.stopExternalVideoLabel)}
-            description="External Video"
-            key="external-video"
-            onClick={isSharingVideo ? stopExternalVideoShare : this.handleExternalVideoClick}
-          />
-        )
-        : null),
     ]);
+  }
+
+  makePresentationItems() {
+    const {
+      presentations,
+      setPresentation,
+      podIds,
+    } = this.props;
+
+    if (!podIds || podIds.length < 1) return [];
+
+    // We still have code for other pods from the Flash client. This intentionally only cares
+    // about the first one because it's the default.
+    const { podId } = podIds[0];
+
+    const presentationItemElements = presentations.map((p) => {
+      const itemStyles = {};
+      itemStyles[styles.presentationItem] = true;
+      itemStyles[styles.isCurrent] = p.isCurrent;
+
+      return (<DropdownListItem
+        className={cx(itemStyles)}
+        icon="file"
+        iconRight={p.isCurrent ? 'check' : null}
+        label={p.filename}
+        description="uploaded presentation file"
+        key={`uploaded-presentation-${p.id}`}
+        onClick={() => {
+          setPresentation(p.id, podId);
+        }}
+      />
+      );
+    });
+
+    presentationItemElements.push(<DropdownListSeparator key={_.uniqueId('list-separator-')} />);
+    return presentationItemElements;
   }
 
   handleExternalVideoClick() {
@@ -196,6 +292,9 @@ class ActionsDropdown extends PureComponent {
     } = this.props;
 
     const availableActions = this.getAvailableActions();
+    const availablePresentations = this.makePresentationItems();
+    const children = availablePresentations.length > 2 && amIPresenter
+      ? availablePresentations.concat(availableActions) : availableActions;
 
     if ((!amIPresenter && !amIModerator)
       || availableActions.length === 0
@@ -206,7 +305,8 @@ class ActionsDropdown extends PureComponent {
     return (
       <Dropdown ref={(ref) => { this._dropdown = ref; }}>
         <DropdownTrigger tabIndex={0} accessKey={OPEN_ACTIONS_AK}>
-          <Button
+        <div style={{textAlign: "center", width: "100%"}}>
+          {/*<Button
             hideLabel
             aria-label={intl.formatMessage(intlMessages.actionsLabel)}
             className={styles.button}
@@ -216,11 +316,18 @@ class ActionsDropdown extends PureComponent {
             size="lg"
             circle
             onClick={() => null}
+          />*/}
+          <ButtonAcb 
+            label="Upload"
+            icon="plus"
+            isActive={true}
+            onClick={() => null}
           />
+          </div>
         </DropdownTrigger>
         <DropdownContent placement="top left">
           <DropdownList>
-            {availableActions}
+            {children}
           </DropdownList>
         </DropdownContent>
       </Dropdown>

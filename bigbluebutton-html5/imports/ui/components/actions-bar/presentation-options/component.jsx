@@ -4,6 +4,8 @@ import { defineMessages, injectIntl, intlShape } from 'react-intl';
 import Button from '/imports/ui/components/button/component';
 import MediaService from '/imports/ui/components/media/service';
 import { styles } from '../styles';
+import ButtonLabel from '/imports/ui/components/button-label/component';
+import ButtonAcb from '/imports/ui/components/acb-button/component';
 
 const propTypes = {
   intl: intlShape.isRequired,
@@ -26,7 +28,8 @@ const shouldUnswapLayout = () => MediaService.shouldShowScreenshare() || MediaSe
 const PresentationOptionsContainer = ({ intl, toggleSwapLayout, isThereCurrentPresentation }) => {
   if (shouldUnswapLayout()) toggleSwapLayout();
   return (
-    <Button
+    <div style={{textAlign: "center", width: "14%"}}>
+    {/*<Button
       className={styles.button}
       icon="presentation"
       label={intl.formatMessage(intlMessages.restorePresentationLabel)}
@@ -38,7 +41,15 @@ const PresentationOptionsContainer = ({ intl, toggleSwapLayout, isThereCurrentPr
       onClick={toggleSwapLayout}
       id="restore-presentation"
       disabled={!isThereCurrentPresentation}
-    />
+    />*/}
+    <ButtonAcb 
+        label="Whiteboard"
+        icon="presentation"
+        isActive={true}
+        isDisabled={!isThereCurrentPresentation}
+        onClick={toggleSwapLayout}
+      />
+    </div>
   );
 };
 

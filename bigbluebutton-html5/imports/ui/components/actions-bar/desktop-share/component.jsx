@@ -10,6 +10,8 @@ import Modal from '/imports/ui/components/modal/simple/component';
 import { withModalMounter } from '../../modal/service';
 import { styles } from '../styles';
 import ScreenshareBridgeService from '/imports/api/screenshare/client/bridge/service';
+import ButtonLabel from '/imports/ui/components/button-label/component';
+import ButtonAcb from '/imports/ui/components/acb-button/component';
 
 const propTypes = {
   intl: intlShape.isRequired,
@@ -171,7 +173,8 @@ const DesktopShare = ({
 
   return shouldAllowScreensharing
     ? (
-      <Button
+      <div style={{textAlign: "center", width: "14%"}}>
+      {/*<Button
         className={cx(styles.button, isVideoBroadcasting || styles.btn)}
         disabled={(!isMeteorConnected && !isVideoBroadcasting) || !screenshareDataSavingSetting}
         icon={isVideoBroadcasting ? 'desktop' : 'desktop_off'}
@@ -201,7 +204,31 @@ const DesktopShare = ({
         }
         }
         id={isVideoBroadcasting ? 'unshare-screen-button' : 'share-screen-button'}
-      />
+      />*/}
+      <ButtonAcb 
+          label="Screenshare"
+          icon={isVideoBroadcasting ? 'desktop' : 'desktop_off'}
+          isActive={isVideoBroadcasting}
+          onClick={isVideoBroadcasting ? handleUnshareScreen : () => {
+          if (IS_SAFARI && !ScreenshareBridgeService.hasDisplayMedia) {
+            return mountModal(<Modal
+              overlayClassName={styles.overlay}
+              className={styles.modal}
+              onRequestClose={() => mountModal(null)}
+              hideBorder
+              contentLabel={intl.formatMessage(intlMessages.screenShareUnavailable)}
+            >
+              <h3 className={styles.title}>
+                {intl.formatMessage(intlMessages.screenShareUnavailable)}
+              </h3>
+              <p>{intl.formatMessage(intlMessages.screenShareNotSupported)}</p>
+                              </Modal>);
+          }
+          handleShareScreen(onFail);
+        }
+        }
+        />
+      </div>
     ) : null;
 };
 

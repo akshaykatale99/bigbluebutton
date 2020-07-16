@@ -103,6 +103,8 @@ class App extends Component {
 
     this.handleWindowResize = throttle(this.handleWindowResize).bind(this);
     this.shouldAriaHide = this.shouldAriaHide.bind(this);
+
+    Session.set('openPanel', '');
   }
 
   componentDidMount() {
@@ -146,6 +148,7 @@ class App extends Component {
     }
 
     logger.info({ logCode: 'app_component_componentdidmount' }, 'Client loaded successfully');
+
   }
 
   componentDidUpdate(prevProps) {

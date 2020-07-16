@@ -14,6 +14,8 @@ import EchoTest from '../echo-test/component';
 import Help from '../help/component';
 import AudioDial from '../audio-dial/component';
 import AudioAutoplayPrompt from '../autoplay/component';
+import Lottie from 'react-lottie';
+import * as animationData from './connecting.json'
 
 const propTypes = {
   intl: intlShape.isRequired,
@@ -424,6 +426,15 @@ class AudioModal extends Component {
 
     const { content } = this.state;
 
+    const defaultOptions = {
+      loop: true,
+      autoplay: true, 
+      animationData: animationData,
+      rendererSettings: {
+        preserveAspectRatio: 'xMidYMid slice'
+      }
+    };
+
     if (isIOSChrome) {
       return (
         <div>
@@ -439,13 +450,17 @@ class AudioModal extends Component {
     if (this.skipAudioOptions()) {
       return (
         <div className={styles.connecting} role="alert">
-          <span>
+          {/*<span>
             {!isEchoTest
               ? intl.formatMessage(intlMessages.connecting)
               : intl.formatMessage(intlMessages.connectingEchoTest)
             }
           </span>
-          <span className={styles.connectingAnimation} />
+          <span className={styles.connectingAnimation} />*/}
+          <Lottie options={defaultOptions}
+              height={200}
+              width={200} />
+          <h6>Use headphones for better audio experience</h6> 
         </div>
       );
     }

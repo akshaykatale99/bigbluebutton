@@ -1,0 +1,52 @@
+.acbButton {
+    background: transparent;
+    color: #F26D21;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    height: 45px;
+    transition: all .5s;
+}
+
+.acbButton.active {
+  color: #25D366;
+}
+
+.acbButton i {
+    font-size: 20px;
+}
+
+.acbButton span {
+    font-size: 11px;
+    line-height: 5px;
+}
+
+.acbButton:focus {
+    outline: none;
+}
+
+.acbButton:hover {
+    cursor: pointer;
+    box-shadow: 0px 0px 10px #131517 inset;
+}
+
+.btnWithNotificationDot {
+  position: relative;
+
+  &:after {
+    content: attr(data-after);
+    position: absolute;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    bottom: var(--border-size);
+    right: -4px;
+    background-color: var(--color-danger);
+    border: var(--border-size) solid var(--color-gray-dark);
+    top: -4px;
+    font-size: 11px;
+    color: #fff;
+  }
+}

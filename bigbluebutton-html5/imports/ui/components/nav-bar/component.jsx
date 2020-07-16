@@ -12,6 +12,15 @@ import Button from '../button/component';
 import RecordingIndicator from './recording-indicator/container';
 import TalkingIndicatorContainer from '/imports/ui/components/nav-bar/talking-indicator/container';
 import SettingsDropdownContainer from './settings-dropdown/container';
+import browser from 'browser-detect';
+import EndMeetingConfirmationContainer from '/imports/ui/components/end-meeting-confirmation/container';
+
+const BROWSER_RESULTS = browser();
+const isMobileBrowser = (BROWSER_RESULTS ? BROWSER_RESULTS.mobile : false)
+  || (BROWSER_RESULTS && BROWSER_RESULTS.os
+    ? BROWSER_RESULTS.os.includes('Android') // mobile flag doesn't always work
+    : false);
+const IS_SAFARI = BROWSER_RESULTS.name === 'safari';
 
 
 const intlMessages = defineMessages({
@@ -69,6 +78,45 @@ class NavBar extends PureComponent {
     clearInterval(this.interval);
   }
 
+  renderToggleBtn(){
+    const {
+      hasUnreadMessages,
+      isExpanded,
+      intl,
+      shortcuts: TOGGLE_USERLIST_AK,
+      mountModal,
+      presentationTitle,
+      amIModerator,
+    } = this.props;
+
+    const toggleBtnClasses = {};
+    toggleBtnClasses[styles.btn] = true;
+    //toggleBtnClasses[styles.btnWithNotificationDot] = hasUnreadMessages;
+    
+    let ariaLabel = intl.formatMessage(intlMessages.toggleUserListAria);
+    ariaLabel += hasUnreadMessages ? (` ${intl.formatMessage(intlMessages.newMessages)}`) : '';
+
+    if(isMobileBrowser){
+      return(
+        <Button
+            data-test="userListToggleButton"
+            onClick={NavBar.handleToggleUserList}
+            ghost
+            circle
+            size="lg"
+            hideLabel
+            data-test={hasUnreadMessages ? 'hasUnreadMessages' : null}
+            label={intl.formatMessage(intlMessages.toggleUserListLabel)}
+            aria-label={ariaLabel}
+            icon={isExpanded ? "close" : "user"}
+            className={cx(toggleBtnClasses)}
+            aria-expanded={isExpanded}
+            accessKey={TOGGLE_USERLIST_AK}
+        />
+      )
+    }
+  }
+
   render() {
     const {
       hasUnreadMessages,
@@ -91,8 +139,9 @@ class NavBar extends PureComponent {
     return (
       <div className={styles.navbar}>
         <div className={styles.top}>
-          <div className={styles.left}>
-            {!isExpanded ? null
+          <div className={styles.left} style={{width: isMobileBrowser ? 'auto' : '50px'}}>
+            {this.renderToggleBtn()}
+            {/*{!isExpanded ? null
               : <Icon iconName="left_arrow" className={styles.arrowLeft} />
             }
             <Button
@@ -110,7 +159,7 @@ class NavBar extends PureComponent {
             />
             {isExpanded ? null
               : <Icon iconName="right_arrow" className={styles.arrowRight} />
-            }
+            }*/}
           </div>
           <div className={styles.center}>
             <h1 className={styles.presentationTitle}>{presentationTitle}</h1>
@@ -121,7 +170,31 @@ class NavBar extends PureComponent {
             />
           </div>
           <div className={styles.right}>
-            <SettingsDropdownContainer amIModerator={amIModerator} />
+            {/*<SettingsDropdownContainer amIModerator={amIModerator} />*/}
+            {
+              amIModerator ? 
+              (<Button
+                onClick={() => mountModal(<EndMeetingConfirmationContainer />)}
+                ghost={true}
+                circle
+                hideLabel
+                label="Leave Session"
+                icon="logout"
+                size="lg"
+                className={styles.btn}
+                color="danger"
+              />) : (<Button
+                onClick={() => window.location.href = 'https://apiv2.learntez.com/vct-bridge/exit'}
+                ghost={true}
+                circle
+                hideLabel
+                label="Leave Session"
+                icon="logout"
+                size="lg"
+                className={styles.btn}
+                color="danger"
+              />)
+            }
           </div>
         </div>
         <div className={styles.bottom}>

@@ -4,6 +4,8 @@ import cx from 'classnames';
 import Button from '/imports/ui/components/button/component';
 import { defineMessages, injectIntl, intlShape } from 'react-intl';
 import { styles } from './styles';
+import ButtonLabel from '/imports/ui/components/button-label/component';
+import ButtonAcb from '/imports/ui/components/acb-button/component';
 
 const intlMessages = defineMessages({
   joinVideo: {
@@ -63,19 +65,28 @@ const JoinVideoButton = ({
     ? intl.formatMessage(intlMessages.videoLocked) : sharingVideoLabel;
 
   return (
-    <Button
-      label={disabledLabel}
-      className={cx(styles.button, isSharingVideo || styles.btn)}
-      onClick={isSharingVideo ? handleCloseVideo : verifyIOS}
-      hideLabel
-      aria-label={intl.formatMessage(intlMessages.videoButtonDesc)}
-      color={isSharingVideo ? 'primary' : 'default'}
-      icon={isSharingVideo ? 'video' : 'video_off'}
-      ghost={!isSharingVideo}
-      size="lg"
-      circle
-      disabled={isDisabled}
-    />
+    <div style={{textAlign: "center", width: "14%"}}>
+      {/*<Button
+        label={disabledLabel}
+        className={cx(styles.button, isSharingVideo || styles.btn)}
+        onClick={isSharingVideo ? handleCloseVideo : verifyIOS}
+        hideLabel
+        aria-label={intl.formatMessage(intlMessages.videoButtonDesc)}
+        color={isSharingVideo ? 'primary' : 'default'}
+        icon={isSharingVideo ? 'video' : 'video_off'}
+        ghost={!isSharingVideo}
+        size="lg"
+        circle
+        disabled={isDisabled}
+      />*/}
+      <ButtonAcb
+          label="Webcam"
+          icon={isSharingVideo ? 'video' : 'video_off'}
+          isActive={isSharingVideo}
+          disabled={isDisabled}
+          onClick={isSharingVideo ? handleCloseVideo : verifyIOS}
+       />
+    </div>
   );
 };
 

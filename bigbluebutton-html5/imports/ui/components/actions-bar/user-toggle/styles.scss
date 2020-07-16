@@ -1,0 +1,98 @@
+@import "/imports/ui/stylesheets/variables/_all";
+@import "/imports/ui/components/actions-bar/styles.scss";
+
+.textCenter{
+  text-align: center;
+}
+
+.container {
+  display: flex;
+  flex-flow: row;
+
+  > * {
+    margin: 0 var(--sm-padding-x);
+
+    @include mq($small-only) {
+      margin: 0 var(--sm-padding-y);
+    }
+  }
+
+  > :first-child {
+    margin-left: 0;
+    margin-right: inherit;
+
+    [dir="rtl"] & {
+      margin-left: inherit;
+      margin-right: 0;
+    }
+  }
+
+  > :last-child {
+      margin-left: inherit;
+      margin-right: 0;
+
+    [dir="rtl"] & {
+      margin-left: 0;
+      margin-right: inherit;
+    }
+  }
+}
+
+.glow {
+  border-radius: 50%;
+  
+  :global(.animationsEnabled) & {
+    animation: pulse 1s infinite ease-in;
+  }
+
+  :global(.animationsDisabled) & span {
+    content: '';
+    outline: none !important;
+    background-clip: padding-box;
+    box-shadow: 0 0 0 4px rgba(255,255,255,.5);
+  }
+}
+
+.button{
+    border: none;
+    overflow: visible !important;
+    display: inline-block;
+    cursor: pointer;
+    line-height: 1.5;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    background: none;
+    padding: 0 !important;
+}
+
+.btnWithNotificationDot {
+  position: relative;
+
+  &:after {
+    content: attr(data-after);
+    position: absolute;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    bottom: var(--border-size);
+    right: -4px;
+    background-color: var(--color-danger);
+    border: var(--border-size) solid var(--color-gray-dark);
+    top: -4px;
+    font-size: 11px;
+    color: #fff;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 white;
+  }
+  70% {
+    box-shadow: 0 0 0 0.5625rem transparent;
+  }
+  100% {
+    box-shadow: 0 0 0 0 transparent;
+  }
+}
